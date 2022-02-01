@@ -1,0 +1,91 @@
+<html>
+    <head><title>Lyrics</title>
+     <style>
+         #background{
+            background-image:url('https://wallpapercave.com/wp/wp2803709.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+         }
+        #heading{
+            font-size: 50px;
+            text-align: center;
+            color: white;
+        } 
+        #content{
+            text-align: center;
+            font-size: 25px;
+            color: white;
+        }
+        .btn{
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:active{
+            box-shadow: 0 5px #666;
+        }
+        #lyrics{
+            border-style: solid;
+            border-color: black;
+            margin-left: 30px;
+            margin-right: 40px;
+           margin-top: 40px;
+           font-size: 20px;
+           color: white;
+        }
+     </style>
+    </head>
+    <body id="background" >
+        <div id="heading">Find the Lyrics of A Song</div><br>
+     <div id="content" >
+        <div>
+            Enter Name of An Artist   
+             <input id="Artist" type="text"> </input>
+        </div>
+        <div>
+            Enter Name of The Song
+             <input id="Song" type="text"> </input>
+        </div>
+    
+         <div >
+             <button class="btn" onclick= "runclick()" >Click here</button>
+
+        </div>
+    </div>  
+        <div id="lyrics"></div>
+
+    </body>
+
+<script>
+    
+    async function givendata(c,d)
+    {
+        
+        
+
+        await fetch('https://api.lyrics.ovh/v1/'+c+'/'+d)
+        .then(response => response.json())
+        .then(data =>{
+            let output = data.lyrics;
+            console.log(c,d);
+            document.getElementById('lyrics').innerHTML=output;
+        })
+            
+          
+     
+    
+
+         .catch(err => alert("Wrong Input!"))
+    }
+    
+
+    async  function runclick()
+        {
+           let a = document.getElementById('Artist').value;
+           let b = document.getElementById('Song').value;
+           
+          let slyrics =await givendata(a,b);
+        }
+
+</script>
+
+</html>
